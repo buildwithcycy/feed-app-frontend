@@ -6,7 +6,7 @@ interface UserSession {
     email: string;
 }
 
-interface AppContextType {
+export interface AppContextType {
   setSession: (token: string) => void;
   getSession: () => string | null;
   setUserData: (userData: UserSession | undefined) => void;
