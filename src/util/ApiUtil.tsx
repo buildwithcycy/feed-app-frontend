@@ -76,6 +76,29 @@ const registerApi = async (
    //return response;
  };
 
+ export const loginApi = async (username: string, password: string): Promise<StandardResponse> => {
+   let response: StandardResponse = frameResponse();
+    try {
+   const url: string = `${API_BASE_URL}/user/login`;
+   const apiResponse = await axios.post(url, { username, password });
 
+   if (apiResponse.status === 200) {
+     const payLoad = {
+       userData: apiResponse.data,
+       token: apiResponse.headers.authorization,
+     };
+     
+     response = frameResponse(1, payLoad);
+     }
+   } catch (err: any) {
+     if (err.response) {
+       response = frameResponse(0, err.response.data.message);
+     }
+     console.error("Login API Error:", err);
+   } finally {
+     return response;
+ }
+   //return response;
+ };
 export { registerApi };
 
