@@ -4,7 +4,7 @@ const API_BASE_URL: string = "http://localhost:8080";
 
 const frameToken = (token: string): string => `Bearer ${token}`;
 
-interface StandardResponse {
+export interface StandardResponse {
   status: number;
   payLoad: any; 
 }
@@ -78,3 +78,4 @@ const registerApi = async (
 
 
 export { registerApi };
+
