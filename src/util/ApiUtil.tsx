@@ -54,4 +54,27 @@ const registerApi = async (
  // return response;
 };
 
+ export const verifyEmailApi = async (token: string): Promise<StandardResponse> => {
+   let response: StandardResponse = frameResponse();
+   try {
+   const url: string = `${API_BASE_URL}/user/verify/email`;
+   const apiResponse = await axios.get(url, {
+     headers: { Authorization: frameToken(token) },
+   });
+   
+   if (apiResponse.status === 200) {
+     response = frameResponse(1, apiResponse.data);
+   }
+ } catch (err: any) {
+   if (err.response) {
+     response = frameResponse(0, err.response.data.message);
+   }
+   console.error("Email Verification Error:", err);
+ } finally {
+   return response;
+ }
+   //return response;
+ };
+
+
 export { registerApi };
