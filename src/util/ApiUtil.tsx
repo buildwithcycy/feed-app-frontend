@@ -54,3 +54,4 @@ const registerApi = async (
  // return response;
 };
 
+export { registerApi };
