@@ -100,5 +100,27 @@ const registerApi = async (
  }
    //return response;
  };
+
+ export const forgotPasswordApi = async (email: string): Promise<StandardResponse> => {
+   let response: StandardResponse = frameResponse();
+
+   try {
+   const url: string = `${API_BASE_URL}/user/reset/${encodeURIComponent(email)}`;
+   const apiResponse = await axios.get(url);
+
+   if (apiResponse.status === 200) {
+     response = frameResponse(1);
+   }
+ } catch (err: any) {
+   if (err.response) {
+     response = frameResponse(0, err.response.data.message);
+   }
+   console.error("Forgot Password API Error:", err);
+ } finally {
+   return response;
+ }
+   //return response;
+ };
+
 export { registerApi };
 
