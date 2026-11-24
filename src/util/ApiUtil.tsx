@@ -148,7 +148,32 @@ const registerApi = async (
    } finally {
      return response;
  }
+   //return response;
+ };
+
+ export const sessionApi = async (token: string): Promise<StandardResponse> => {
+   let response: StandardResponse = frameResponse();
+   try {
+   const url: string = `${API_BASE_URL}/user/get`;
+   
+   const apiResponse = await axios.get(url, {
+     headers: { 
+       Authorization: frameToken(token) 
+     },
+   });
+
+   if (apiResponse.status === 200) {
+     response = frameResponse(1, apiResponse.data);
+   }
+ } catch (err: any) {
+   if (err.response) {
+     response = frameResponse(0, err.response.data.message);
+   }
+   console.error("Session Validation Error:", err);
+ } finally {
    return response;
+ }
+   //return response;
  };
 export { registerApi };
 
