@@ -175,5 +175,41 @@ const registerApi = async (
  }
    //return response;
  };
+
+ export const updatePublicProfileApi = async (
+   token: string,
+   bio: string,
+   city: string,
+   country: string,
+   headline: string,
+   picture: string
+ ): Promise<any> => {
+   let response = frameResponse();
+
+   try {
+   const url = `${API_BASE_URL}/user/update/profile`;
+   const apiResponse = await axios.post(
+     url,
+     {
+       bio,
+       city,
+       country,
+       headline,
+       picture,
+     },
+     { headers: { Authorization: frameToken(token) } }
+   );
+   if (apiResponse.status === 200) {
+     response = frameResponse(1, apiResponse.data);
+   }
+ } catch (err: any) {
+   if (err.response) {
+     response = frameResponse(0, err.response.data.message);
+   }
+   console.log(err);
+ } finally {
+   return response;
+ }
+ };
 export { registerApi };
 
