@@ -211,5 +211,28 @@ const registerApi = async (
    return response;
  }
  };
+
+ export const getOthersFeedsApi = async (
+   token: string,
+   pageNumber: number
+ ): Promise<any> => {
+   let response = frameResponse();
+    try {
+   const url = `${API_BASE_URL}/feeds/other/${pageNumber}/5`;
+   const apiResponse = await axios.get(url, {
+     headers: { Authorization: frameToken(token) },
+   });
+   if (apiResponse.status === 200) {
+     response = frameResponse(1, apiResponse.data);
+   }
+ } catch (err: any) {
+   if (err.response) {
+     response = frameResponse(0, err.response.data.message);
+   }
+   console.log(err);
+ } finally {
+   return response;
+ }
+ };
 export { registerApi };
 
